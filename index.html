@@ -1,15 +1,435 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="loading" lang="en" data-textdirection="ltr">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>babivirtual test</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
+
+<style>
+    .steps-section {
+        display: none;
+    }
+
+    .active {
+        display: block !important;
+    }
+
+    .active-counter {
+        background-color: #007bff !important;
+    }
+
+    .active-label {
+        color: #007bff !important;
+    }
+
+    .bs-stepper .step-trigger {
+        display: inline-flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        font-size: 1rem;
+        font-weight: 700;
+        line-height: 1.5;
+        color: #6c757d;
+        text-align: center;
+        text-decoration: none;
+        white-space: nowrap;
+        vertical-align: middle;
+        user-select: none;
+        background-color: transparent;
+        border: none;
+        border-radius: .25rem;
+        transition: background-color .15s ease-out, color .15s ease-out;
+    }
+
+    .bs .bs-stepper .step-trigger:not(:disabled):not(.disabled) {
+        cursor: pointer;
+    }
+
+    .bs-stepper .step-trigger:disabled,
+    .bs-stepper .step-trigger.disabled {
+        pointer-events: none;
+        opacity: .65;
+    }
+
+    .bs-stepper .step-trigger:focus {
+        color: #007bff;
+        outline: none;
+    }
+
+    .bs-stepper .step-trigger:hover {
+        text-decoration: none;
+        background-color: rgba(0, 0, 0, .06);
+    }
+
+    @media (max-width: 520px) {
+        .bs-stepper .step-trigger {
+            flex-direction: column;
+            padding: 10px;
+        }
+    }
+
+    .bs-stepper-label {
+        display: inline-block;
+        margin: .25rem;
+    }
+
+    .bs-stepper-header {
+        display: flex;
+        align-items: center;
+    }
+
+    @media (max-width: 520px) {
+        .bs-stepper-header {
+            margin: 0 -10px;
+            text-align: center;
+        }
+    }
+
+    .bs-stepper-line,
+    .bs-stepper .line {
+        flex: 1 0 32px;
+        min-width: 1px;
+        min-height: 1px;
+        margin: auto;
+        background-color: rgba(0, 0, 0, .12);
+    }
+
+    @media (max-width: 400px) {
+
+        .bs-stepper-line,
+        .bs-stepper .line {
+            flex-basis: 20px;
+        }
+    }
+
+    .bs-stepper-circle {
+        display: inline-flex;
+        align-content: center;
+        justify-content: center;
+        width: 2em;
+        height: 2em;
+        padding: .5em 0;
+        margin: .25rem;
+        line-height: 1em;
+        color: #fff;
+        background-color: #6c757d;
+        border-radius: 1em;
+    }
+
+    .active .bs-stepper-circle {
+        background-color: #007bff;
+    }
+
+    .bs-stepper-content {
+        padding: 50px 50px 50px;
+    }
+
+    @media (max-width: 520px) {
+        .bs-stepper-content {
+            padding: 0;
+        }
+    }
+
+    .bs-stepper.vertical {
+        display: flex;
+    }
+
+    .bs-stepper.vertical .bs-stepper-header {
+        flex-direction: column;
+        align-items: stretch;
+        margin: 0;
+    }
+
+    .bs-stepper.vertical .bs-stepper-pane,
+    .bs-stepper.vertical .content {
+        display: block;
+    }
+
+    .bs-stepper.vertical .bs-stepper-pane:not(.fade),
+    .bs-stepper.vertical .content:not(.fade) {
+        display: block;
+        visibility: hidden;
+    }
+
+    .bs-stepper-pane:not(.fade),
+    .bs-stepper .content:not(.fade) {
+        display: none;
+    }
+
+    .bs-stepper .content.fade,
+    .bs-stepper-pane.fade {
+        visibility: hidden;
+        transition-duration: .3s;
+        transition-property: opacity;
+    }
+
+    .bs-stepper-pane.fade.active,
+    .bs-stepper .content.fade.active {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .bs-stepper-pane.active:not(.fade),
+    .bs-stepper .content.active:not(.fade) {
+        display: block;
+        visibility: visible;
+    }
+
+    .bs-stepper-pane.dstepper-block,
+    .bs-stepper .content.dstepper-block {
+        display: block;
+    }
+
+    .bs-stepper:not(.vertical) .bs-stepper-pane.dstepper-none,
+    .bs-stepper:not(.vertical) .content.dstepper-none {
+        display: none;
+    }
+
+    .vertical .bs-stepper-pane.fade.dstepper-none,
+    .vertical .content.fade.dstepper-none {
+        visibility: hidden;
+    }
+
+    div.row {
+        border: 1px solid;
+        border-bottom: 0px;
+    }
+
+    .container div.row:last-child {
+        border-bottom: 1px solid;
+    }
+
+    #navs-tab-home .btn-back {
+        display: none;
+    }
+</style>
+
+
 <body>
-    jahanzaibahmad200@gmail.com
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="tab-content p-0">
+                    <div id="stepper4" class="bs-stepper wizard-vertical vertical">
+                        <div class="bs-stepper-header">
+                            <div class="step step-head" data-target="#test-vlnf-1">
+                                <button type="button" class="step-trigger">
+                                    <span class="bs-stepper-circle step-counter active-counter">1</span>
+                                    <span class="bs-stepper-label step-label active-label">First step</span>
+                                </button>
+                            </div>
+                            <div class="bs-stepper-line"></div>
+                            <div class="step step-head" data-target="#test-vlnf-2">
+                                <button type="button" class="step-trigger">
+                                    <span class="bs-stepper-circle step-counter">2</span>
+                                    <span class="bs-stepper-label step-label">Second step</span>
+                                </button>
+                            </div>
+                            <div class="bs-stepper-line"></div>
+                            <div class="step step-head" data-target="#test-vlnf-3">
+                                <button type="button" class="step-trigger">
+                                    <span class="bs-stepper-circle step-counter">3</span>
+                                    <span class="bs-stepper-label step-label">Third step</span>
+                                </button>
+                            </div>
+                            <div class="bs-stepper-line"></div>
+                            <div class="step step-head" data-target="#test-vlnf-4">
+                                <button type="button" class="step-trigger">
+                                    <span class="bs-stepper-circle step-counter">4</span>
+                                    <span class="bs-stepper-label step-label">Fourth step</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    Message me on my gmail! I've an offer for you!
 
-    Accept my offer I'll pay you 25 dollars via payoneer!
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Bookings</h4>
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="bs-stepper-content">
+                            <form id="multiStepForm">
+                                <!-- Step 1 Content -->
+                                <div class="step active steps-section" id="test-vlnf-1">
+                                    <p class="text-center">Step 1 Content</p>
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input type="text" class="form-control" id="name" name="name"
+                                            placeholder="Enter your name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phoneNumber">Phone Number</label>
+                                        <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber"
+                                            placeholder="Enter your phone number">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="address">Address</label>
+                                        <input type="text" class="form-control" id="address" name="address"
+                                            placeholder="Enter your address">
+                                    </div>
+                                    <button type="button" class="btn btn-primary next-btn">Next</button>
+                                </div>
+
+                                <!-- Step 2 Content -->
+                                <div class="step steps-section" id="test-vlnf-2">
+                                    <p class="text-center">Step 2 Content</p>
+                                    <div class="stepper-wrapper">
+                                        <div class="stepper-item completed">
+                                            <div class="step-counter">1</div>
+                                            <div class="step-name">First</div>
+                                        </div>
+                                        <div class="stepper-item ">
+                                            <div class="step-counter">2</div>
+                                            <div class="step-name">Second</div>
+                                        </div>
+                                        <div class="stepper-item ">
+                                            <div class="step-counter">3</div>
+                                            <div class="step-name">Third</div>
+                                        </div>
+                                    </div>
+                                    <div class="sub-content active">
+                                        <div class="form-group">
+                                            <label for="name3">Name 1</label>
+                                            <input type="text" class="form-control" id="name3" name="name3"
+                                                placeholder="Enter your name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phoneNumber3">Phone Number 1</label>
+                                            <input type="tel" class="form-control" id="phoneNumber3" name="phoneNumber3"
+                                                placeholder="Enter your phone number">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="address3">Address 1</label>
+                                            <input type="text" class="form-control" id="address3" name="address3"
+                                                placeholder="Enter your address">
+                                        </div>
+                                        <button type="button" class="btn btn-primary next-sub-btn">Next</button>
+                                    </div>
+                                    <div class="sub-content">
+                                        <div class="form-group">
+                                            <label for="name3">Name 2</label>
+                                            <input type="text" class="form-control" id="name3" name="name3"
+                                                placeholder="Enter your name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phoneNumber3">Phone Number 2</label>
+                                            <input type="tel" class="form-control" id="phoneNumber3" name="phoneNumber3"
+                                                placeholder="Enter your phone number">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="address3">Address 2</label>
+                                            <input type="text" class="form-control" id="address3" name="address3"
+                                                placeholder="Enter your address">
+                                        </div>
+                                        <button type="button" class="btn btn-primary prev-sub-btn">Previous</button>
+                                        <button type="button" class="btn btn-primary next-sub-btn">Next</button>
+                                    </div>
+                                    <div class="sub-content">
+                                        <div class="form-group">
+                                            <label for="name3">Name 3</label>
+                                            <input type="text" class="form-control" id="name3" name="name3"
+                                                placeholder="Enter your name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phoneNumber3">Phone Number 3</label>
+                                            <input type="tel" class="form-control" id="phoneNumber3" name="phoneNumber3"
+                                                placeholder="Enter your phone number">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="address3">Address 3</label>
+                                            <input type="text" class="form-control" id="address3" name="address3"
+                                                placeholder="Enter your address">
+                                        </div>
+                                        <button type="button" class="btn btn-primary prev-sub-btn">Previous</button>
+                                    </div>
+                                    <button type="button" class="btn btn-primary next-btn">Next</button>
+                                    <button type="button" class="btn btn-primary prev-btn">Previous</button>
+                                </div>
+
+                                <!-- Step 3 Content -->
+                                <div class="step steps-section" id="test-vlnf-3">
+                                    <p class="text-center">Step 3 Content</p>
+                                    <!-- Add content for step 3 here -->
+                                    <button type="button" class="btn btn-primary next-btn">Next</button>
+                                    <button type="button" class="btn btn-primary prev-btn">Previous</button>
+                                </div>
+                                <!-- Step 4 Content -->
+                                <div class="step steps-section" id="test-vlnf-4">
+                                    <p class="text-center">Step 4 Content</p>
+                                    <!-- Add content for step 3 here -->
+                                    <button type="button" class="btn btn-primary prev-btn">Previous</button>
+                                    <button type="button" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Handle tab switching when "Next" or "Back" buttons are clicked
+        // document.querySelectorAll('[data-bs-toggle="tab"]').forEach((tabButton) => {
+        //     tabButton.addEventListener('click', () => {
+        //         const targetTab = tabButton.getAttribute('data-bs-target');
+        //         const tabPane = document.querySelector(targetTab);
+
+
+        //         document.querySelectorAll('.tab-pane.fade').forEach((pane) => {
+        //             pane.classList.remove('active', 'show');
+        //         });
+        //         tabPane.classList.add('active', 'show');
+        //     });
+        // });
+
+        // const wizardVertical = document.querySelector(".wizard-vertical");
+
+        // if (typeof wizardVertical !== undefined && wizardVertical !== null) {
+        //     const wizardVerticalBtnNextList = [].slice.call(wizardVertical.querySelectorAll('.btn-next')),
+        //         wizardVerticalBtnPrevList = [].slice.call(wizardVertical.querySelectorAll('.btn-prev')),
+        //         wizardVerticalBtnSubmit = wizardVertical.querySelector('.btn-submit');
+
+        //     const numberedVerticalStepper = new Stepper(wizardVertical, {
+        //         linear: false
+        //     });
+        //     if (wizardVerticalBtnNextList) {
+        //         wizardVerticalBtnNextList.forEach(wizardVerticalBtnNext => {
+        //             wizardVerticalBtnNext.addEventListener('click', event => {
+        //                 numberedVerticalStepper.next();
+        //             });
+        //         });
+        //     }
+        //     if (wizardVerticalBtnPrevList) {
+        //         wizardVerticalBtnPrevList.forEach(wizardVerticalBtnPrev => {
+        //             wizardVerticalBtnPrev.addEventListener('click', event => {
+        //                 numberedVerticalStepper.previous();
+        //             });
+        //         });
+        //     }
+        //     if (wizardVerticalBtnSubmit) {
+        //         wizardVerticalBtnSubmit.addEventListener('click', event => {});
+        //     }
+        // }
+    </script>
+
 </body>
+
 </html>
